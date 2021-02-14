@@ -7,6 +7,9 @@ const sliderContainer = document.getElementById("sliders");
 const search = document.getElementById("search");
 const showErrorToUser = document.getElementById("showError");
 const toggleSpinner = document.getElementById("loadingSpinner");
+const imageSelectedShow = document.getElementById("imageSelectedShow");
+const totalImage = document.getElementById("totalImage");
+const imageSelected = document.getElementById("imageSelected");
 // selected image
 let sliders = [];
 
@@ -17,9 +20,15 @@ const KEY = "15674931-a9d714b6e9d654524df198e00&q";
 
 // show images
 const showImages = (images) => {
+  //showing how many images are there and how many are selected
+  totalImage.innerText = images.length;
+  imageSelected.innerText = 0;
+  //checking if the api finds the correct images
+  //if the API finds 0 images show the error the message
   if (images.length == 0) {
     showErrorToUser.style.display = "block";
     imagesArea.style.display = "none";
+    //creating error message to show
     showErrorToUser.innerHTML = `
       <h1 class="textCenter mt-5">Sorry! Couldn't find anything!</h1>
     `;
@@ -28,6 +37,8 @@ const showImages = (images) => {
   }
   showErrorToUser.style.display = "none";
   imagesArea.style.display = "block";
+  imageSelectedShow.style.display = "block";
+  //console.log(imageSelectedShow);
   gallery.innerHTML = "";
   // show gallery title
   galleryHeader.style.display = "flex";
@@ -40,8 +51,10 @@ const showImages = (images) => {
   toggleSpinner.classList.toggle("d-none");
 };
 
+//getting images from API
 const getImages = (query) => {
   toggleSpinner.classList.toggle("d-none");
+  imagesArea.style.display = "none";
   fetch(
     `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`
   )
@@ -61,6 +74,7 @@ const selectItem = (event, img) => {
   } else {
     sliders.splice(item, 1);
   }
+  imageSelected.innerText = sliders.length;
 };
 var timer;
 const createSlider = () => {
@@ -86,7 +100,7 @@ const createSlider = () => {
     return;
   }
   document.querySelector(".main").style.display = "block";
-  // hide image aria
+  // hide image area
   imagesArea.style.display = "none";
   const duration = durationValue || 1000;
   sliders.forEach((slide) => {
@@ -129,6 +143,7 @@ const changeSlide = (index) => {
   items[index].style.display = "block";
 };
 
+//search button clicked
 searchBtn.addEventListener("click", function () {
   document.querySelector(".main").style.display = "none";
   clearInterval(timer);
@@ -136,12 +151,14 @@ searchBtn.addEventListener("click", function () {
   sliders.length = 0;
 });
 
+//adding the enter key to search button
 search.addEventListener("keyup", function (event) {
   if (event.key === "Enter") {
     searchBtn.click();
   }
 });
 
+//slider button clicked
 sliderBtn.addEventListener("click", function () {
   createSlider();
 });

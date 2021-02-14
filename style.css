@@ -69,3 +69,6 @@ img {
   text-align: center;
   color: red;
 }
+.notShow {
+  display: none;
+}

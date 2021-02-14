@@ -42,6 +42,7 @@
         </button>
       </div>
       <section>
+        <!--adding Spinner-->
         <div id="loadingSpinner" class="d-none">
           <div class="d-flex justify-content-center">
             <div class="spinner-border text-info textCenter" role="status">
@@ -49,7 +50,10 @@
             </div>
           </div>
         </div>
+
+        <!--showing error message-->
         <div id="showError"></div>
+        <!--showing images after searching-->
         <div class="images">
           <div
             class="justify-content-around align-items-center mt-3 gallery-header mb-2"
@@ -67,6 +71,13 @@
             <button id="create-slider" class="btn btn-primary px-5">
               Create slider
             </button>
+          </div>
+          <!--showing how many images are selected out of total images-->
+          <div id="imageSelectedShow" class="notShow">
+            <h5 class="text-center">
+              Total Number of Images: <span id="imageSelected">0</span> out of
+              <span id="totalImage"> 20 </span>
+            </h5>
           </div>
           <div class="row gallery"></div>
         </div>
